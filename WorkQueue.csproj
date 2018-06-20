@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>WorkQueue</AssemblyName>
+    <PackageId>WorkQueue</PackageId>
+    <RootNamespace>WorkQueue</RootNamespace>
+    <Version>1.0.0</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageProjectUrl>https://github.com/2881099/WorkQueue</PackageProjectUrl>
+    <Description>非常轻便的线程队列处理器，支持.NETCore</Description>
+    <RepositoryUrl>https://github.com/2881099/WorkQueue</RepositoryUrl>
+    <PackageTags>线程队列 消息队列 mq workqueue</PackageTags>
+  </PropertyGroup>
+</Project>
