@@ -2,7 +2,7 @@
 
 # 使用方法
 
-> Install-Package WorkQueue -Version 1.0.0
+> Install-Package WorkQueue -Version 1.0.1
 
 ```csharp
 //暂时使用线程池，并发量大后再考虑mq
