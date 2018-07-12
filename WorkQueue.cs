@@ -40,7 +40,7 @@ public class WorkQueue<T> : IDisposable {
 
 	public void Enqueue(T item) {
 		lock (_queue_lock) {
-			if (_capacity > 0 && _queue.Count >= _capacity) return;
+			if (_capacity > 0 && _queue.Count >= _capacity) throw new StackOverflowException($"队列数量大于(capacity)设置值：{_capacity}");
 			_queue.Enqueue(item);
 		}
 		lock (_works_lock) {
