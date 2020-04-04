@@ -4,7 +4,7 @@
     <AssemblyName>WorkQueue</AssemblyName>
     <PackageId>WorkQueue</PackageId>
     <RootNamespace>WorkQueue</RootNamespace>
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://github.com/2881099/WorkQueue</PackageProjectUrl>
     <Description>非常轻便的线程队列处理器，支持.NETCore、.NetFramework</Description>

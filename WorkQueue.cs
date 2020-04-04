@@ -78,10 +78,8 @@ public class WorkQueue<T> : IDisposable
                         }
                         if (_queue.Count == 0)
                         {
-                            work.WaitOne(TimeSpan.FromSeconds(20));
-
-                            if (_queue.Count == 0)
-                                break;
+                            if (work.WaitOne(TimeSpan.FromSeconds(20))) continue;
+                            if (_queue.Count == 0) break;
                         }
                     }
                     _works.TryRemove(index, out var oldw);
@@ -154,24 +152,26 @@ public class WorkQueue<T> : IDisposable
         private ManualResetEvent _reset = new ManualResetEvent(false);
         private bool _isWaiting = false;
 
-        public void WaitOne(TimeSpan timeout)
+        public bool WaitOne(TimeSpan timeout)
         {
             try
             {
                 _reset.Reset();
                 _isWaiting = true;
-                _reset.WaitOne(timeout);
+                return _reset.WaitOne(timeout);
             }
             catch { }
+            return false;
         }
-        public void Set()
+        public bool Set()
         {
             try
             {
                 _isWaiting = false;
-                _reset.Set();
+                return _reset.Set();
             }
             catch { }
+            return false;
         }
 
         public bool IsWaiting => _isWaiting;
