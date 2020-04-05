@@ -64,7 +64,7 @@ public class WorkQueue<T> : IDisposable
                 _works.TryAdd(index, work);
 
                 new Thread(delegate () {
-                    while (true)
+                    while (isdisposed == false)
                     {
                         if (_queue.TryDequeue(out var de))
                         {
@@ -97,8 +97,17 @@ public class WorkQueue<T> : IDisposable
 
     #region IDisposable 成员
 
+    bool isdisposed = false;
+    object isdisposedLock = new object();
     public void Dispose()
     {
+        if (isdisposed) return;
+        lock (isdisposedLock)
+        {
+            if (isdisposed) return;
+            isdisposed = true;
+        }
+
         while (_queue.TryDequeue(out var de)) ;
         foreach (WorkInfo w in _works.Values)
             w.Dispose();
