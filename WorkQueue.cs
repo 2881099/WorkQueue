@@ -163,6 +163,7 @@ public class WorkQueue<T> : IDisposable
 
         public bool WaitOne(TimeSpan timeout)
         {
+            if (isdisposed) return false;
             try
             {
                 _reset.Reset();
@@ -184,6 +185,20 @@ public class WorkQueue<T> : IDisposable
         }
 
         public bool IsWaiting => _isWaiting;
-        public void Dispose() => this.Set();
+
+        bool isdisposed = false;
+        object isdisposedLock = new object();
+        public void Dispose()
+        {
+            if (isdisposed) return;
+            lock (isdisposedLock)
+            {
+                if (isdisposed) return;
+                isdisposed = true;
+            }
+
+            this.Set();
+            _reset.Dispose();
+        }
     }
 }
